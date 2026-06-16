@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+</head>
+<body>
+<h1>Edit user</h1>
+<form th:method="PATCH" th:action="@{/admin/{id}(id=${user.id})}" th:object="${user}">
+    <label for="name">Name:</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <br/>
+
+    <label for="age">Age:</label>
+    <input type="number" th:field="*{age}" id="age" min="0"/>
+    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+    <br/>
+
+    <label for="email">Email/login:</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    <br/>
+
+    <label for="password">New password:</label>
+    <input type="password" name="password" id="password" placeholder="leave empty to keep old password"/>
+    <br/>
+
+    <p>Roles:</p>
+    <div th:each="role : ${roles}">
+        <label>
+            <input type="checkbox" name="roleIds" th:value="${role.id}"
+                   th:checked="${user.roles.contains(role)}"/>
+            <span th:text="${role.name}"></span>
+        </label>
+    </div>
+    <br/>
+    <input type="submit" value="Update"/>
+</form>
+<br/>
+<a th:href="@{/admin}">Back</a>
+</body>
+</html>
