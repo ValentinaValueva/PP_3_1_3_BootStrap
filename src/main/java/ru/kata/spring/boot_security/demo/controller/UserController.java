@@ -13,4 +13,14 @@ public class UserController {
         model.addAttribute("user", user);
         return "user";
     }
+
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
 }
